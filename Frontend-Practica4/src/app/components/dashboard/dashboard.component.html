@@ -65,7 +65,7 @@
                             <input type="text" class="form-control" name="nombre_catedratico" id="nombre_catedratico">
                         </div>
                     </div>
-                    <div class="row justify-content-center pt-5 flex-column align-items-center" *ngFor="let item of allPosts">
+                    <div class="row justify-content-center pt-5 flex-column align-items-center" *ngFor="let item of allPosts; let i = index">
                         <div class="col-6 border p-3 custom-shadow">
                             <div class="row">
                                 <div class="col-12">
@@ -91,20 +91,19 @@
                                 <div class="row pt-3">
                                     <div class="col-12 d-flex align-items-center justify-content-center" style="height: 35px;">
                                         <i class="fa-solid fa-comments" style="color: #004d7a; transform: scale(1.5); width: 30px;"></i>
-                                        <label>Ver comentarios</label>
+                                        <label (click)="setOpened(item)">Ver comentarios</label>
                                         <!-- <label>No ver comentarios</label> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 border p-3 custom-shadow-comments" *ngIf="false">
-                            <div class="row pt-3">
+                        <div class="col-6 border p-3 custom-shadow-comments" *ngIf="item.opened">
+                            <div class="row pt-3" *ngFor="let c of item.comments; let i = index">
                                 <div class="col-12">
-                                    <label class="fw-bold">Nombre de usuario</label>
+                                    <label class="fw-bold">{{c.license_user}}</label>
                                 </div>
                                 <div class="col-12">
-                                    <p class="my-0" style="text-align: justify;">It is a long established fact that a reader will be distracted by the readable 
-                                        content of a page when looking at its layout </p>
+                                    <p class="my-0" style="text-align: justify;">{{c.textComment}}</p>
                                 </div>
                                 <div class="col-12 justify-content-center d-flex">
                                     <div class="col-12 border-bottom mt-3 px-3"></div>
@@ -112,24 +111,12 @@
                             </div>
                             <div class="row pt-3">
                                 <div class="col-12">
-                                    <label class="fw-bold">Nombre de usuario</label>
-                                </div>
-                                <div class="col-12">
-                                    <p class="my-0" style="text-align: justify;">It is a long established fact that a reader will be distracted by the readable 
-                                        content of a page when looking at its layout </p>
-                                </div>
-                                <div class="col-12 justify-content-center d-flex">
-                                    <div class="col-12 border-bottom mt-3 px-3"></div>
+                                    <input type="text" class="form-control" [value]="inputValues[i]" (input)="onInputChange($event, i)">
                                 </div>
                             </div>
                             <div class="row pt-3">
                                 <div class="col-12">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row pt-3">
-                                <div class="col-12">
-                                    <button class="btn btn-dark">Enviar comentario</button>
+                                    <button class="btn btn-dark" (click)="insertComment(item)">Enviar comentario</button>
                                 </div>
                             </div>
                         </div>
