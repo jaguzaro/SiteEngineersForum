@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
 
@@ -6,7 +6,7 @@ import { UserEntity } from './user.entity';
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
-  @Get('')
+  @Get('bucarUsuario')
   async findAll(): Promise<UserEntity[]> {
         return this.userService.findAll();
     }
@@ -21,5 +21,10 @@ export class UserController {
         const { name, lastname, license, email, password } = body;
         return this.userService.registerUser(name, lastname, license, email, password);
     }
+    
+    @Put("Actulizar")
+    async updateUser(@Body('id') userId: number, @Body() userData: Partial<UserEntity>): Promise<UserEntity> {
+        // Lógica para actualizar el usuario
+        return this.userService.updateUser(userId, userData);
+    }
 }
-

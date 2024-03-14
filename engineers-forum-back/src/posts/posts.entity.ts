@@ -16,4 +16,10 @@ export class PostEntity {
 
     @Column()
     nameCourse: string;
+
+    @Column()
+    idCourse: string;
+    
+    @Column()
+    datePost: string;
 }

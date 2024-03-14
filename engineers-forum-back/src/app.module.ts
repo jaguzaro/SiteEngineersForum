@@ -5,6 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserService } from './user/user.service';
 import { UserController } from './user/user.controller';
 import { UserEntity } from './user/user.entity';
+import { PostEntity } from './posts/posts.entity';
+import { PostsController } from './posts/posts.controller';
+import { PostsService } from './posts/posts.service';
+import { CommentsService } from './comments/comments.service';
+import { CommentsController } from './comments/comments.controller';
+import { CommentsEntity } from './comments/comments.entity';
 
 @Module({
   imports: [
@@ -19,9 +25,9 @@ import { UserEntity } from './user/user.entity';
       synchronize: false,
       insecureAuth: true
     }),
-    TypeOrmModule.forFeature([UserEntity])
+    TypeOrmModule.forFeature([UserEntity]),  TypeOrmModule.forFeature([PostEntity]),  TypeOrmModule.forFeature([CommentsEntity])
   ],
-  controllers: [AppController, UserController],
-  providers: [AppService, UserService]
+  controllers: [AppController, UserController, PostsController, CommentsController],
+  providers: [AppService, UserService, PostsService, CommentsService]
 })
 export class AppModule {}
