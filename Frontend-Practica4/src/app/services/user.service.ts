@@ -45,5 +45,18 @@ export class UserService {
       throw error;
     });
   }
-
+  
+  registerUser(data: any): Promise<any> {
+    const url = this.urlBackend + 'user/registerUser';
+    return fetch(url, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      throw error;
+    });
+  }
 }

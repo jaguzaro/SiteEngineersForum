@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UserService {
     updateUser(userId: number, userData: Partial<UserEntity>): UserEntity | PromiseLike<UserEntity> {
-      throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
     }
 
     constructor(
