@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit{
             for (const post of this.allPosts) {
                 await this.getComments(post.idPost);
                 post.comments = this.allComments;
-              }
+            }
             console.log(this.allPosts)
         }else{
             alert('Error getting posts')
