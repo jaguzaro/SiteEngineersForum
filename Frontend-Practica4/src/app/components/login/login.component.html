@@ -9,15 +9,15 @@
                     <div class="row justify-content-center">
                         <div class="col-8">
                             <div class="row pb-4">
-                                <label class="pb-2 px-0 font-bold">CUI</label>
-                                <input type="email" class="custom-transparent-input" placeholder="1234567891234">
+                                <label class="pb-2 px-0 font-bold">Carnet</label>
+                                <input type="email" class="custom-transparent-input" placeholder="1234567891234" [(ngModel)]="modelCarnet">
                             </div>
                             <div class="row pb-4">
                                 <label class="pb-2 px-0 font-bold">Contraseña</label>
-                                <input type="password" class="custom-transparent-input" placeholder="usuario123">
+                                <input type="password" class="custom-transparent-input" placeholder="usuario123" [(ngModel)]="modelPassword">
                             </div>
                             <div class="row pt-4 pb-4">
-                                <button class="btn btn-dark">Login</button>
+                                <button class="btn btn-dark" (click)="loginUser()">Login</button>
                                 <label class="pt-4 px-0 font-bold cursor-pointer" (click)="showRegister()">¿No tienes un usuario? Crea uno aqui.</label>
                                 <label class="pt-3 px-0 font-bold cursor-pointer" (click)="showForgotPassword()" >Olvidé mi contraseña</label>
                             </div>

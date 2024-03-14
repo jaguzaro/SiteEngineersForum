@@ -11,6 +11,7 @@ import { PostsService } from './posts/posts.service';
 import { CommentsService } from './comments/comments.service';
 import { CommentsController } from './comments/comments.controller';
 import { CommentsEntity } from './comments/comments.entity';
+import { NestFactory } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -25,9 +26,13 @@ import { CommentsEntity } from './comments/comments.entity';
       synchronize: false,
       insecureAuth: true
     }),
-    TypeOrmModule.forFeature([UserEntity]),  TypeOrmModule.forFeature([PostEntity]),  TypeOrmModule.forFeature([CommentsEntity])
+    TypeOrmModule.forFeature([UserEntity]),  TypeOrmModule.forFeature([PostEntity]),  TypeOrmModule.forFeature([CommentsEntity]),
   ],
   controllers: [AppController, UserController, PostsController, CommentsController],
-  providers: [AppService, UserService, PostsService, CommentsService]
+  providers: [AppService, UserService, PostsService, CommentsService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(){
+    
+  }
+}

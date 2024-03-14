@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import 'animate.css'
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -17,7 +20,12 @@ export class LoginComponent {
   register: boolean = false;
   forgotPassword: boolean = false;
 
-  constructor(private elementRef: ElementRef) {}
+  modelCarnet: string = '';
+  modelPassword: string = '';
+
+
+  constructor(private elementRef: ElementRef, private userService: UserService, private router: Router) {
+  }
 
   ngOnInit() {
     this.container_login = this.elementRef.nativeElement.querySelector('#container_login');
@@ -38,5 +46,20 @@ export class LoginComponent {
     this.register = false;
     this.login = false;
     this.forgotPassword = true;
+  }
+
+  async loginUser(){
+    const res = await this.userService.getUser({"license": this.modelCarnet});
+    if(res?.statusCode == 200){
+      if(res?.data[0].password == this.modelPassword){
+        sessionStorage.setItem("session", this.modelCarnet);
+        this.router.navigateByUrl('/dashboard');
+      }else{
+        alert("Contraseña incorrecta");
+      }
+    }else{
+      alert("Usuario no encontrado");
+    }
+    
   }
 }

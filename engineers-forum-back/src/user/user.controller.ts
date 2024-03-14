@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
 
@@ -6,20 +6,45 @@ import { UserEntity } from './user.entity';
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
-  @Get('bucarUsuario')
-  async findAll(): Promise<UserEntity[]> {
-        return this.userService.findAll();
+  @Get('getUsers')
+  async findAll(): Promise<{ statusCode: number; data: UserEntity[] }> {
+    try {
+        const user = await this.userService.findAll();
+        if (!user) {
+          throw new HttpException('Users not found', HttpStatus.NOT_FOUND);
+        }
+        return { "statusCode": HttpStatus.OK, data: user };
+      } catch (error) {
+        throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
     }
 
   @Post('profile')
-  async getUserById(@Body('name') name: string): Promise<UserEntity>{
-        return this.userService.findUserById((name));
+  async getUserById(@Body('license') license: string): Promise<{ statusCode: number; data: UserEntity[] }>{
+    try {
+        const user = await this.userService.findUserById(license);
+        if (!user) {
+          throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
+        return { "statusCode": HttpStatus.OK, data: [user] };
+      } catch (error) {
+        throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
     }
 
   @Post('registerUser')
-  async registerUser(@Body() body: { name: string, lastname: string, license: string, email: string, password: string }): Promise<UserEntity>{
+  async registerUser(@Body() body: { name: string, lastname: string, license: string, email: string, password: string }): Promise<{statusCode: number; data:UserEntity}>{
         const { name, lastname, license, email, password } = body;
-        return this.userService.registerUser(name, lastname, license, email, password);
+        try{
+            const registerUser = await this.userService.registerUser(name, lastname, license, email, password);
+            if(!registerUser){
+                throw new HttpException('Post Error', HttpStatus.NOT_FOUND);
+            }
+            return {"statusCode": HttpStatus.OK, data: registerUser}
+        }catch(error){
+            throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
     }
     
     @Put("Actulizar")

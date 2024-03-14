@@ -20,7 +20,7 @@ export class UserService {
     }
 
     async findUserById(userId: string): Promise<UserEntity>{
-        return await this.userRepository.findOne({where: {name: userId}});
+        return await this.userRepository.findOne({where: {license: userId}});
     }
 
     async registerUser(name: string, lastname: string, license: string, email: string, password: string): Promise<UserEntity>{
