@@ -19,9 +19,15 @@ export class LoginComponent {
   login: boolean = true;
   register: boolean = false;
   forgotPassword: boolean = false;
-
+  
+  modelId: string = '';
+  modelName: string ='';
+  modelLastname: string = '';
   modelCarnet: string = '';
+  modelEmail: string = '';
   modelPassword: string = '';
+  
+  
 
 
   constructor(private elementRef: ElementRef, private userService: UserService, private router: Router) {
@@ -62,6 +68,22 @@ export class LoginComponent {
     }
     
   }
+  async registerUser(){
+    const body = {
+        "name": this.modelName,
+        "lastname": this.modelLastname,
+        "email": this.modelEmail,
+        "license": this.modelCarnet,
+        "password": this.modelPassword}
+
+        const res = await this.userService.registerUser(body);
+        if(res?.statusCode == 200){
+            console.log('Success')
+        }else{
+            alert('Error creating post')
+        }
+  }
+  
 
   
 }
