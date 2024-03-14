@@ -1,0 +1,17 @@
+.title{
+    font-size: 60px;
+    font-weight: bold;
+    color: black;
+}
+
+.custom-shadow {
+    box-shadow: 0 0px 6px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.custom-shadow-comments{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px ;
+}

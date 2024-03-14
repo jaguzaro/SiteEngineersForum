@@ -1,0 +1,91 @@
+<div class="col-12 d-flex align-items-center page-background" style="height: 100vh;">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 justify-content-center d-flex pb-4" *ngIf="login">
+            <label class="title animate__animated animate__slideInUp">Inicio de Sesión</label>
+        </div>
+        <div class="col-3 px-0 container-login pb-4" #container_login *ngIf="login">
+            <div class="row pt-5">
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div class="col-8">
+                            <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">CUI</label>
+                                <input type="email" class="custom-transparent-input" placeholder="1234567891234">
+                            </div>
+                            <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">Contraseña</label>
+                                <input type="password" class="custom-transparent-input" placeholder="usuario123">
+                            </div>
+                            <div class="row pt-4 pb-4">
+                                <button class="btn btn-dark">Login</button>
+                                <label class="pt-4 px-0 font-bold cursor-pointer" (click)="showRegister()">¿No tienes un usuario? Crea uno aqui.</label>
+                                <label class="pt-3 px-0 font-bold cursor-pointer" (click)="showForgotPassword()" >Olvidé mi contraseña</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 justify-content-center d-flex pb-4" *ngIf="register">
+            <label class="title animate__animated animate__slideInUp">Registro de usuario</label>
+        </div>
+        <div class="col-3 px-0 container-login pb-4" #container_registerUser *ngIf="register">
+            <div class="row pt-5">
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div class="col-8">
+                            <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">Registro academico</label>
+                                <input type="text" class="custom-transparent-input" placeholder="202200001">
+                            </div>
+                            <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">Nombres</label>
+                                <input type="text" class="custom-transparent-input" placeholder="Nombre nombre">
+                            </div>
+                            <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">Apellidos</label>
+                                <input type="email" class="custom-transparent-input" placeholder="Apellido apellido">
+                            </div>
+                            <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">Contraseña</label>
+                                <input type="password" class="custom-transparent-input" placeholder="usuario123">
+                            </div>
+                            <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">Correo electronico</label>
+                                <input type="email" class="custom-transparent-input" placeholder="usuario@email.com">
+                            </div>
+                            <div class="row pt-4 pb-4">
+                                <button class="btn btn-dark">Registrar</button>
+                                <label class="pt-4 px-0 font-bold cursor-pointer" (click)="showLogin()">Si ya tienes un usuario, inicia sesion aqui.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 justify-content-center d-flex pb-4" *ngIf="forgotPassword">
+            <label class="title animate__animated animate__slideInUp">Recuperacion de contraseña</label>
+        </div>
+        <div class="col-3 px-0 container-login pb-4" #container_login *ngIf="forgotPassword">
+            <div class="row pt-5">
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div class="col-8">
+                            <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">Nueva contraseña</label>
+                                <input type="password" class="custom-transparent-input" placeholder="usuario123">
+                            </div>
+                            <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">Confirmar contraseña</label>
+                                <input type="password" class="custom-transparent-input" placeholder="usuario123">
+                            </div>
+                            <div class="row pt-4 pb-4">
+                                <button class="btn btn-dark">Cambiar contraseña</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
