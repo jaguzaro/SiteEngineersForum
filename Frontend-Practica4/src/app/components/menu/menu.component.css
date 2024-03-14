@@ -1,5 +1,6 @@
 .lateral-menu{
-    height: 98vh;
+    min-height: 98vh;
+    height: 100%;
     width: auto;
     padding-top: 5rem;
 }
