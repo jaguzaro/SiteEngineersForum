@@ -26,6 +26,8 @@ export class LoginComponent {
   modelCarnet: string = '';
   modelEmail: string = '';
   modelPassword: string = '';
+  modelCarnetPass: string = '';
+  modelnewPass: string = '';
   
   
 
@@ -78,10 +80,24 @@ export class LoginComponent {
 
         const res = await this.userService.registerUser(body);
         if(res?.statusCode == 200){
-            console.log('Success')
+            alert(' Usuario creado correctamente')
         }else{
             alert('Error creating post')
         }
+  }
+
+  async updatePassword(){
+    const body = {
+      "carnet": this.modelCarnetPass,
+      "password": this.modelnewPass
+    }
+
+    const res = await this.userService.updatePassword(body);
+    if (res?.statusCode == 200){
+      alert('Contraseña actualizada correctamente')
+    }else{
+      alert('Error actualizando contraseña')
+    }
   }
   
 

@@ -5,9 +5,6 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-    updateUser(userId: number, userData: Partial<UserEntity>): UserEntity | PromiseLike<UserEntity> {
-    throw new Error('Method not implemented.');
-    }
 
     constructor(
         @InjectRepository(UserEntity)
@@ -27,16 +24,35 @@ export class UserService {
         return await this.userRepository.save({name: name, lastname: lastname, license: license, email: email, password:password});
     }
     
-    /*async updateUser(userId: number, userData: Partial<UserEntity>): Promise<UserEntity> {
-        const user = await this.userRepository.findOne({where: {id: userId}});
-        if (!user) {
-            throw new NotFoundException(`User with ID ${userId} not found`);
-        }
-        Object.assign(user, userData);
-        
-        return await this.userRepository.update({id: userId}, {name: user.name, lastname: user.lastname, email: user.email, password: user.password});
-    } */
+    async updateUserPassword(carnet:string, newPassword: string): Promise<UserEntity> {
+        const userToUpdate = await this.userRepository.findOne({ where: {license: carnet}});
     
+        if (!userToUpdate) {
+          throw new Error('Usuario no encontrado');
+        }
+    
+        userToUpdate.password = newPassword;
+    
+        const updatedUser = await this.userRepository.save(userToUpdate);
+    
+        return updatedUser;
+      }
+    
+    async updateUser(license: string, name: string, lastname: string, email: string): Promise<UserEntity>{
+        const userToUpdate = await this.userRepository.findOne({ where: {license: license}});
+    
+        if (!userToUpdate) {
+          throw new Error('Usuario no encontrado');
+        }
+    
+        userToUpdate.name = name;
+        userToUpdate.lastname = lastname;
+        userToUpdate.email = email;
+    
+        const updatedUser = await this.userRepository.save(userToUpdate);
+    
+        return updatedUser;
+      }
     
     
     

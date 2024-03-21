@@ -59,4 +59,34 @@ export class UserService {
       throw error;
     });
   }
+
+  updatePassword(data:any): Promise<any>{
+    const url = this.urlBackend + 'user/update-password';
+    return fetch(url, {
+      method: 'PUT',
+      headers: this.headers,
+      body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      throw error;
+    });
+  }
+
+  updateUser(data:any): Promise<any>{
+    const url = this.urlBackend + 'user/update-user';
+    return fetch(url, {
+      method: 'PUT',
+      headers: this.headers,
+      body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      throw error;
+    });
+  }
+
+
 }

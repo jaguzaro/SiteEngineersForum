@@ -11,6 +11,11 @@ import { Router } from '@angular/router';
 export class MenuComponent {
 
   constructor(private router: Router){}
+
+  goTo(route: string){
+    this.router.navigateByUrl(route);
+  }
+
   logOut(){
     sessionStorage.clear();
     this.router.navigateByUrl('/');

@@ -72,15 +72,19 @@
                     <div class="row justify-content-center">
                         <div class="col-8">
                             <div class="row pb-4">
+                                <label class="pb-2 px-0 font-bold">Registro academico</label>
+                                <input type="text" class="custom-transparent-input" placeholder="202200001" [(ngModel)]="modelCarnetPass">
+                            </div>
+                            <div class="row pb-4">
                                 <label class="pb-2 px-0 font-bold">Nueva contraseña</label>
                                 <input type="password" class="custom-transparent-input" placeholder="usuario123">
                             </div>
                             <div class="row pb-4">
                                 <label class="pb-2 px-0 font-bold">Confirmar contraseña</label>
-                                <input type="password" class="custom-transparent-input" placeholder="usuario123">
+                                <input type="password" class="custom-transparent-input" placeholder="usuario123" [(ngModel)]="modelnewPass">
                             </div>
                             <div class="row pt-4 pb-4">
-                                <button class="btn btn-dark">Cambiar contraseña</button>
+                                <button class="btn btn-dark" (click)="updatePassword()">Cambiar contraseña</button>
                             </div>
                         </div>
                     </div>

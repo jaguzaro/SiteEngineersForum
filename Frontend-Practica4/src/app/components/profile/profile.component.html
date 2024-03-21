@@ -1,0 +1,87 @@
+<div class="col-12">
+    <div class="row">
+        <div class="col-2" style="padding-right: 0px;">
+            <app-menu></app-menu>
+        </div>
+        <div class="col-10 px-5">
+            <div class="row py-5">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 pb-4">
+                            <p class="title">Perfil</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row pt-3">
+                                <div class="col-3">
+                                    <label>Nombre</label>
+                                    <input type="text" class="form-control" [(ngModel)]="modelName">
+
+                                </div>
+                                <div class="col-3">
+                                    <label>Apellido</label>
+                                    <input type="text" class="form-control" [(ngModel)]="modelLastname">
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-3">
+                                    <label>Carnet</label>
+                                    <input type="text" class="form-control" [(ngModel)]="modelLicense" readonly>
+                                </div>
+                                <div class="col-3">
+                                    <label>Correo</label>
+                                    <input type="text" class="form-control" [(ngModel)]="modelEmail">
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-2">
+                                    <button class="btn btn-dark" (click)="updateUser()">Actualizar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 pb-4 pt-5">
+                            <p class="title">Buscar Perfil</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row pt-3 pb-3">
+                                <div class="col-3">
+                                    <label>Buscar Carnet</label>
+                                    <input type="text" class="form-control" [(ngModel)]="modelLicenseFind">
+                                </div>
+                                <div class="col-2 align-items-end d-flex">
+                                    <button class="btn btn-dark" (click)="findUser()">Buscar</button>
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-3">
+                                    <label>Nombre</label>
+                                    <input type="text" class="form-control" [(ngModel)]="modelNameF" readonly>
+
+                                </div>
+                                <div class="col-3">
+                                    <label>Apellido</label>
+                                    <input type="text" class="form-control" [(ngModel)]="modelLastnameF" readonly>
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-3">
+                                    <label>Carnet</label>
+                                    <input type="text" class="form-control" [(ngModel)]="modelLicenseF" readonly>
+                                </div>
+                                <div class="col-3">
+                                    <label>Correo</label>
+                                    <input type="text" class="form-control" [(ngModel)]="modelEmailF" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

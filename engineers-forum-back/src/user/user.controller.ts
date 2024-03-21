@@ -47,9 +47,37 @@ export class UserController {
         
     }
     
-    @Put("Actulizar")
-    async updateUser(@Body('id') userId: number, @Body() userData: Partial<UserEntity>): Promise<UserEntity> {
-        // Lógica para actualizar el usuario
-        return this.userService.updateUser(userId, userData);
+    @Put('update-password')
+    async updateUserPassword(
+      @Body('password') newPassword: string,
+      @Body('carnet') carnet: string,
+    ): Promise<{statusCode:number, data: UserEntity}> {
+      try{
+        const updateUser = await this.userService.updateUserPassword(carnet, newPassword);
+        if(!updateUser){
+            throw new HttpException('update Error', HttpStatus.NOT_FOUND);
+        }
+        return {"statusCode": HttpStatus.OK, data: updateUser}
+      }catch(error){
+        throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
+
+    @Put('update-user')
+    async updateUser(
+      @Body('email') email: string,
+      @Body('lastname') lastname: string,
+      @Body('name') name: string,
+      @Body('license') license: string,
+    ): Promise<{statusCode:number, data: UserEntity}> {
+      try{
+        const updateUser = await this.userService.updateUser(license, name, lastname, email);
+        if(!updateUser){
+            throw new HttpException('update Error', HttpStatus.NOT_FOUND);
+        }
+        return {"statusCode": HttpStatus.OK, data: updateUser}
+      }catch(error){
+        throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
     }
 }
