@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { CommentService } from '../../services/comment.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-dashboard',
@@ -28,12 +29,12 @@ export class DashboardComponent implements OnInit{
             "name": "Estructura de datos"
         },
         {
-            "code": "0777",
+            "code": "0770",
             "name": "IPC1"
         },
         {
-            "code": "0777",
-            "name": "IPC1"
+            "code": "2025",
+            "name": "Practicas Iniciales"
         }
     ]
     modelCourseCode: string = ''
@@ -44,11 +45,48 @@ export class DashboardComponent implements OnInit{
     allPosts: any[] = [];
     allUsers: any[] = [];
     allComments: any[] = [];
+    allPostsBackup: any[] = [];
     inputValues: string[] = [];
 
-    constructor(private postService: PostService, private userService: UserService, private commentService: CommentService){
+    modelFilterCourseCode: string = '';
+    modelFilterTeacher: string = '';
+
+    allTeachers: any[] = [];
+    allCourses: any[] = [];
+
+    constructor(private postService: PostService, private userService: UserService, private commentService: CommentService, private router: Router){
 
     }
+
+    filterByCourseCode(event: Event){
+        if(this.modelFilterCourseCode == 'Ver todos'){
+            this.allPosts = this.allPostsBackup
+            return;
+        }
+        this.allPosts = this.allPostsBackup.filter(x => x.idCourse == this.modelFilterCourseCode)
+    }
+
+    filterByTeacher(event: Event){
+        const inputElement = event.target as HTMLInputElement;
+        const value = inputElement.value.toLowerCase();
+        if(this.allTeachers.includes(value)){
+            this.allPosts = this.allPostsBackup.filter(x => x.teacher.toLowerCase() == value)
+        }else{
+            this.allPosts = this.allPostsBackup
+        }
+    }
+
+    filterByCourseName(event: Event){
+        const inputElement = event.target as HTMLInputElement;
+        const value = inputElement.value.toLowerCase();
+        if(this.allCourses.includes(value)){
+            console.log(this.allCourses, value)
+            this.allPosts = this.allPostsBackup.filter(x => x.nameCourse.toLowerCase() == value)
+        }else{
+            this.allPosts = this.allPostsBackup
+        }
+    }
+
 
     async ngOnInit() {
         await this.getAllUsers();
@@ -67,10 +105,25 @@ export class DashboardComponent implements OnInit{
 
         const res = await this.postService.insertPost(body);
         if(res?.statusCode == 200){
-            console.log('Success')
+            this.reloadData();
+            this.ngOnInit();
         }else{
             alert('Error creating post')
         }
+    }
+
+    async reloadData(){
+        this.allPosts = [];
+        this.allUsers = [];
+        this.allComments = [];
+        this.allPostsBackup = [];
+        this.inputValues = [];
+        this.modelCourseCode = ''
+        this.modelTeacher = ''
+        this.modelText = ''
+        this.modelComment = ''
+        this.allTeachers = [];
+        this.allCourses = [];
     }
 
     async getPosts(){
@@ -78,6 +131,8 @@ export class DashboardComponent implements OnInit{
         if(res?.statusCode == 200){
             this.allPosts = res?.data.map((data: any)=>{
                 const user = this.allUsers.find((u: any)=> u.license === data.license_user);
+                this.allTeachers.push(data.teacher.toString().toLowerCase());
+                this.allCourses.push(data.nameCourse.toString().toLowerCase());
                 return {... data, name: user ? user.name : '', lastname: user ? user.lastname : ''}
             });
             this.allPosts = this.allPosts.map((data: any)=>{
@@ -89,7 +144,7 @@ export class DashboardComponent implements OnInit{
                 await this.getComments(post.idPost);
                 post.comments = this.allComments;
             }
-            console.log(this.allPosts)
+            this.allPostsBackup = this.allPosts
         }else{
             alert('Error getting posts')
         }
@@ -124,6 +179,8 @@ export class DashboardComponent implements OnInit{
         const res = await this.commentService.insertComment(body);
         if(res?.statusCode == 200){
             console.log('Success')
+            this.reloadData();
+            this.ngOnInit();
         }else{
             alert('Error creating post')
         }
@@ -149,6 +206,12 @@ export class DashboardComponent implements OnInit{
         }else{
             alert('Error getting posts')
         }
+    }
+
+    reloadComponent(){
+        this.router.navigateByUrl('/dashboard', { skipLocationChange: true }).then(()=>{
+            this.router.navigate(['/dashboard'])
+        })
     }
 
 }

@@ -15,3 +15,9 @@
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px ;
 }
+
+.sub-title{
+    font-size: 13px;
+    font-weight: bold;
+    color: black;
+}

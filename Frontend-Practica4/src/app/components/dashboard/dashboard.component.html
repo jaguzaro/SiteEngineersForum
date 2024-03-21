@@ -46,23 +46,18 @@
                     <div class="row">
                         <div class="col-3">
                             <label>Filtrar por curso</label>
-                            <select class="form-select" name="curso" id="curso">
-                                <option value="">Todos</option>
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <label>Filtrar por catedratico</label>
-                            <select class="form-select" name="catedratico" id="catedratico">
-                                <option value="">Todos</option>
+                            <select class="form-select" name="curso" id="curso" (change)="filterByCourseCode($event)" [(ngModel)]="modelFilterCourseCode">
+                                <option *ngFor="let item of courses" [value]="item.code">{{ item.code }}</option>
+                                <option>Ver todos</option>
                             </select>
                         </div>
                         <div class="col-3">
                             <label for="nombre_curso">Filtrar por Nombre de Curso:</label>
-                            <input type="text" class="form-control" name="nombre_curso" id="nombre_curso">
+                            <input type="text" class="form-control" name="nombre_curso" id="nombre_curso" (input)="filterByCourseName($event)">
                         </div>
                         <div class="col-3">
                             <label for="nombre_catedratico">Filtrar por Nombre de Catedrático:</label>
-                            <input type="text" class="form-control" name="nombre_catedratico" id="nombre_catedratico">
+                            <input type="text" class="form-control" name="nombre_catedratico" id="nombre_catedratico" (input)="filterByTeacher($event)">
                         </div>
                     </div>
                     <div class="row justify-content-center pt-5 flex-column align-items-center" *ngFor="let item of allPosts; let i = index">
@@ -77,12 +72,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
+                                        <p class="text-start mb-0 sub-title mt-3">{{ item.idCourse }} - {{ item.nameCourse}}</p>
+                                        <p class="text-start sub-title">{{ item.teacher }}</p>
+                                    </div>
+                                    <div class="col-12">
                                         <p class="mt-3" style="text-align: justify;">
                                             {{item.textPost}}
                                         </p>
                                     </div>
                                     <div class="col-12 text-end">
-                                        <span class="pe-2">{{ item.comments.length }}</span><span>comentarios</span>
+                                        <span class="pe-2">{{ item?.comments?.length }}</span><span>comentarios</span>
                                     </div>
                                 </div>
                                 <div class="col-12 justify-content-center d-flex">
